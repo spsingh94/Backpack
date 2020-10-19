@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-// import React from "react";
 import fetch from "node-fetch";
 import { Maps } from "../Maps";
 
@@ -8,12 +7,8 @@ function Generator() {
   const [responseArray, setResponseArray] = useState(null);
   const [selection, setSelection] = useState(null);
   const [location, setLocation] = useState(null);
-  //used to get random list from api
   const [number, setNumber] = useState();
-  // const [countryName, setCountryName] = useState();
-  // const [cityName, setCityName] = useState();
   const [mapLocation, setMapLocation] = useState();
-  //   const [randomLocation, setRandomLocation] = useState();
 
   console.log(apiResponse);
   // console.log(selection);
@@ -26,7 +21,10 @@ function Generator() {
 
   //   const selectionRef = useRef();
 
-  const apiKey = process.env.REACT_APP_RAPID_KEY;
+  const rapidKey = process.env.REACT_APP_RAPID_KEY;
+  const googleKey = process.env.REACT_APP_GOOGLE_KEY;
+
+  const mapsSource = `https://www.google.com/maps/embed/v1/place?key=${googleKey}&q=${mapLocation}`;
 
   useEffect(() => {
     if (selection != null) {
@@ -48,9 +46,7 @@ function Generator() {
           method: "GET",
           headers: {
             "x-rapidapi-host": "wft-geo-db.p.rapidapi.com",
-            // "x-rapidapi-key": `${apiKey}`,
-            "x-rapidapi-key":
-              "957c538eacmshfff2cc486070e3ep1fc406jsnf26db0ef2c8c",
+            "x-rapidapi-key": `${rapidKey}`,
           },
         }
       )
@@ -116,12 +112,6 @@ function Generator() {
     let x = Math.floor(Math.random() * 194 + 1);
     setNumber(x);
   }
-
-  // const API_KEY = process.env.REACT_APP_GOOGLE_KEY;
-  const API_KEY = "AIzaSyCB562S4olyifwJ5yO8vBgNVnYk2KCcw_g";
-
-  const mapsSource = `https://www.google.com/maps/embed/v1/place?key=${API_KEY}&q=${mapLocation}`;
-  console.log(mapsSource);
 
   return (
     <>
