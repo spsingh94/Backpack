@@ -11,15 +11,8 @@ function Generator() {
   const [mapLocation, setMapLocation] = useState();
 
   console.log(apiResponse);
-  // console.log(selection);
-  // console.log(location);
-  // console.log(number);
   console.log(responseArray);
-  // console.log(countryName);
-  // console.log(cityName);
   console.log(mapLocation);
-
-  //   const selectionRef = useRef();
 
   const rapidKey = process.env.REACT_APP_RAPID_KEY;
   const googleKey = process.env.REACT_APP_GOOGLE_KEY;
@@ -32,14 +25,8 @@ function Generator() {
     }
   }, [selection]);
 
-  // offset=273685&limit=5
-
-  // /v1/geo/countries?offset=192&limit=5
-
   useEffect(() => {
     if (location != null) {
-      //   fetch(
-      //     `https://rapidapi.p.rapidapi.com/v1/geo/${location}`,
       fetch(
         `https://rapidapi.p.rapidapi.com//v1/geo/${location}?offset=${number}&limit=5`,
         {
@@ -59,8 +46,6 @@ function Generator() {
           if (responseArray[0].metadata.totalCount === 198) {
             setMapLocation(responseArray[0].data[0].name);
           } else {
-            // setCountryName(responseArray[0].data[0].region);
-            // setCityName(responseArray[0].data[0].name);
             setMapLocation(
               responseArray[0].data[0].region +
                 "," +
@@ -75,27 +60,7 @@ function Generator() {
     setSelection(null);
     setApiResponse(null);
     setResponseArray(null);
-  }, [apiKey, location, number, responseArray]);
-
-  // useEffect(() => {
-  //   if (apiResponse != null) {
-  //     setResponseArray(apiResponse);
-  //   }
-  //   setApiResponse(null);
-  // }, [apiResponse, responseArray]);
-
-  // useEffect(() => {
-  //   // if (responseArray[0].metaData.totalCount <= 198)
-  //   if (responseArray != null) {
-  //     setCountryName(responseArray[0].data[0].name);
-  //     // setMapLocation(countryName);
-  //   }
-  //   // else {
-  //   // setCountryName(responseArray[0].data[0].country);
-  //   // setCityName(responseArray[0].data[0].name);
-  //   // setMapLocation(countryName + "," + cityName);
-  //   // }
-  // }, [responseArray, countryName, cityName]);
+  }, [rapidKey, location, number, responseArray]);
 
   function selectedCity(e) {
     setSelection(e.currentTarget.value);
@@ -115,13 +80,11 @@ function Generator() {
 
   return (
     <>
-      {/* <form action="/action_page.php"> */}
       <input
         type="radio"
         id="city"
         name="location"
         value="cities"
-        //   ref={selectionRef}
         onChange={selectedCity}
       />
       <label for="city">City</label>
@@ -133,7 +96,6 @@ function Generator() {
         value="countries"
         onChange={selectedCountry}
       />
-      {/* </form> */}
       <label for="country">Country</label>
       <br></br>
       <br />
