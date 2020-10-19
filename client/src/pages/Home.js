@@ -1,10 +1,12 @@
 import React from "react";
 import Generator from "../components/Generator";
+import { Maps } from "../components/Maps";
 
 function Home() {
   return (
-    <Generator />
-    // <h1>hi</h1>
+    <>
+      <Generator />
+    </>
   );
 }
 

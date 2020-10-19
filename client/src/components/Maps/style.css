@@ -1,0 +1,28 @@
+.google-maps-frame {
+  border: 0;
+  margin-bottom: 40px;
+}
+
+@media (max-width: 1150px) {
+  .google-maps-frame {
+      height: 550px;
+  }
+}
+
+@media (max-width: 950px) {
+  .google-maps-frame {
+      height: 450px;
+  }
+}
+
+@media (max-width: 700px) {
+  .google-maps-frame {
+      height: 350px;
+  }
+}
+
+@media (max-width: 450px) {
+  .google-maps-frame {
+      height: 300px;
+  }
+}
