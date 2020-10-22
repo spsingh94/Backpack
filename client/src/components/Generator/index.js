@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
+import { DateContext } from "../Calendar";
 import fetch from "node-fetch";
 import { Maps } from "../Maps";
 
@@ -19,6 +20,9 @@ function Generator() {
   const [fields, setFields] = useState([]);
   const [ageUrl, setAgeUrl] = useState();
 
+  const calendarDate = useContext(DateContext);
+  // const toCalendarDate = useContext(ToDateContext);
+
   console.log(apiResponse);
   console.log(ageUrl);
   console.log(responseArray);
@@ -29,6 +33,8 @@ function Generator() {
   console.log(cabin);
   console.log(children);
   console.log(fields);
+  // console.log(toCalendarDate);
+  console.log(calendarDate);
 
   const rapidKey = process.env.REACT_APP_RAPID_KEY;
   const googleKey = process.env.REACT_APP_GOOGLE_KEY;
@@ -36,7 +42,7 @@ function Generator() {
   const mapsSource = `https://www.google.com/maps/embed/v1/place?key=${googleKey}&q=${mapLocation}`;
 
   useEffect(() => {
-    if (currentLocation === "undefined") {
+    if (currentLocation === undefined) {
       navigator.geolocation.getCurrentPosition(function (position) {
         setCurrentLocation([
           position.coords.latitude,
@@ -363,12 +369,12 @@ function Generator() {
         onClick={() => {
           if (children > 1) {
             window.open(
-              `https://www.skyscanner.com/transport/flights/${currAirportCode}/${destAirportCode}/201024/201031/?adults=${adults}&adultsv2=${adults}&cabinclass=${cabin}&children=${children}&childrenv2=${ageUrl}&destinationentityid=27545162&inboundaltsenabled=false&infants=0&originentityid=27544948&outboundaltsenabled=false&preferdirects=false&preferflexible=false&ref=home&rtn=1`
+              `https://www.skyscanner.com/transport/flights/${currAirportCode}/${destAirportCode}/${calendarDate}/?adults=${adults}&adultsv2=${adults}&cabinclass=${cabin}&children=${children}&childrenv2=${ageUrl}&destinationentityid=27545162&inboundaltsenabled=false&infants=0&originentityid=27544948&outboundaltsenabled=false&preferdirects=false&preferflexible=false&ref=home&rtn=1`
             );
             // flipArray();
           } else {
             window.open(
-              `https://www.skyscanner.com/transport/flights/${currAirportCode}/${destAirportCode}/201024/201031/?adults=${adults}&adultsv2=${adults}&cabinclass=${cabin}&children=0&childrenv2=&destinationentityid=46516321&destinationgsid=46516321&inboundaltsenabled=false&infants=0&originentityid=27544948&outboundaltsenabled=false&preferdirects=false&preferflexible=false&ref=home&rtn=1`
+              `https://www.skyscanner.com/transport/flights/${currAirportCode}/${destAirportCode}/${calendarDate}/?adults=${adults}&adultsv2=${adults}&cabinclass=${cabin}&children=0&childrenv2=&destinationentityid=46516321&destinationgsid=46516321&inboundaltsenabled=false&infants=0&originentityid=27544948&outboundaltsenabled=false&preferdirects=false&preferflexible=false&ref=home&rtn=1`
             );
           }
         }}
