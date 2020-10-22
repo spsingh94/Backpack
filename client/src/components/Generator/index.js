@@ -36,7 +36,7 @@ function Generator() {
   const mapsSource = `https://www.google.com/maps/embed/v1/place?key=${googleKey}&q=${mapLocation}`;
 
   useEffect(() => {
-    if (currentLocation === undefined) {
+    if (currentLocation === "undefined") {
       navigator.geolocation.getCurrentPosition(function (position) {
         setCurrentLocation([
           position.coords.latitude,

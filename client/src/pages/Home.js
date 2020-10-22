@@ -1,11 +1,12 @@
 import React from "react";
 import Generator from "../components/Generator";
-import { Maps } from "../components/Maps";
+import Calendar from "../components/Calendar";
 
 function Home() {
   return (
     <>
       <Generator />
+      <Calendar />
     </>
   );
 }
