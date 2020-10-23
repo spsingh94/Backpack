@@ -1,14 +1,17 @@
 import React from "react";
 import { BrowserRouter as Router, Route } from "react-router-dom";
-// import TablePage from "../src/pages/TablePage";
 import Home from "./pages/Home";
+import TravelPage from "./pages/TravelPage";
+import Navbar from "./components/Navbar";
+import Footer from "./components/Footer";
 
 function App() {
   return (
     <Router>
-      {/* <Navbar /> */}
+      <Navbar />
       <Route exact path="/" component={Home} />
-      {/* <Footer /> */}
+      <Route exact path="/travel" component={TravelPage} />
+      <Footer />
     </Router>
   );
 }

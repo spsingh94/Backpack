@@ -1,0 +1,20 @@
+.header-div {
+  max-height: 530px;
+  overflow: hidden;
+}
+
+#header-img {
+  -webkit-filter: grayscale(50%);
+  filter: grayscale(50%);
+}
+
+.header-title {
+  position: relative;
+  text-align: center;
+  margin-top: 200px;
+}
+
+.header-text {
+  position: relative;
+  text-align: center;
+}

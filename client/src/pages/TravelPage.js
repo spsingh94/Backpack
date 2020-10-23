@@ -1,10 +1,10 @@
 import React from "react";
-import Header from "../components/Header";
+import Calendar from "../components/Calendar";
 
 function Home() {
   return (
     <>
-    <Header/>
+      <Calendar />
     </>
   );
 }

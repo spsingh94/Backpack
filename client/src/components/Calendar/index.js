@@ -25,12 +25,8 @@ const FromCalendar = () => {
   useEffect(() => {
     if (finalFrom != null && finalTo != null) {
       setUrlDate(finalFrom + "/" + finalTo);
-      // setFinalFrom(null);
-      // setFinalTo(null);
     }
   }, [finalFrom, finalTo]);
-
-  // console.log(otherDate);
 
   console.log(urlDate);
 
@@ -204,32 +200,42 @@ const FromCalendar = () => {
 
   function onFromDateClick(day) {
     setFromSelectedDate(day);
-    dateFixer();
+    let fromStringer = JSON.stringify(day);
+    let fromSlicer = fromStringer.slice(3, 11);
+    let fromSeperator = fromSlicer.split(["-"]);
+    const fromDataString = JSON.stringify(fromSeperator);
+    let fromCleaner = fromDataString.replace(/{|}|[[\]]|,|"|"|/gi, "");
+    setFinalFrom(fromCleaner);
   }
 
   function onToDateClick(today) {
     setToSelectedDate(today);
-    dateFixer();
+    let stringer = JSON.stringify(today);
+    let slicer = stringer.slice(3, 11);
+    let seperator = slicer.split(["-"]);
+    const dataString = JSON.stringify(seperator);
+    let cleaner = dataString.replace(/{|}|[[\]]|,|"|"|/gi, "");
+    setFinalTo(cleaner);
   }
 
-  function dateFixer() {
-    if (fromSelectedDate != null) {
-      let fromStringer = JSON.stringify(fromSelectedDate);
-      let fromSlicer = fromStringer.slice(3, 11);
-      let fromSeperator = fromSlicer.split(["-"]);
-      const fromDataString = JSON.stringify(fromSeperator);
-      let fromCleaner = fromDataString.replace(/{|}|[[\]]|,|"|"|/gi, "");
-      setFinalFrom(fromCleaner);
-    }
-    if (toSelectedDate != null) {
-      let stringer = JSON.stringify(toSelectedDate);
-      let slicer = stringer.slice(3, 11);
-      let seperator = slicer.split(["-"]);
-      const dataString = JSON.stringify(seperator);
-      let cleaner = dataString.replace(/{|}|[[\]]|,|"|"|/gi, "");
-      setFinalTo(cleaner);
-    }
-  }
+  // function dateFixer() {
+  //   if (fromSelectedDate != null) {
+  //     let fromStringer = JSON.stringify(fromSelectedDate);
+  //     let fromSlicer = fromStringer.slice(3, 11);
+  //     let fromSeperator = fromSlicer.split(["-"]);
+  //     const fromDataString = JSON.stringify(fromSeperator);
+  //     let fromCleaner = fromDataString.replace(/{|}|[[\]]|,|"|"|/gi, "");
+  //     setFinalFrom(fromCleaner);
+  //   }
+  //   if (toSelectedDate != null) {
+  //     let stringer = JSON.stringify(toSelectedDate);
+  //     let slicer = stringer.slice(3, 11);
+  //     let seperator = slicer.split(["-"]);
+  //     const dataString = JSON.stringify(seperator);
+  //     let cleaner = dataString.replace(/{|}|[[\]]|,|"|"|/gi, "");
+  //     setFinalTo(cleaner);
+  //   }
+  // }
 
   return (
     <>
