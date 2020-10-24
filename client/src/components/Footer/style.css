@@ -1,3 +1,8 @@
-.footer-nav-items {
+#footer-nav-items {
     color: black;
+}
+
+.card-footer {
+  font-family: "Abril Fatface", cursive;
+  text-align: center;
 }

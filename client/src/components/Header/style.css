@@ -6,19 +6,45 @@
 #header-img {
   -webkit-filter: grayscale(50%);
   filter: grayscale(50%);
+  opacity: 80%;
 }
 
 .header-title {
+  font-family: "Pacifico", cursive;
   position: relative;
   text-align: center;
   margin-top: 200px;
+  font-size: 45px;
+}
+@keyframes border {
+  from {
+    width: 0px;
+  }
+  to {
+    width: 100%;
+  }
+}
+.header-title:after {
+  content: "";
+  display: block;
+  margin: auto;
+  height: 3px;
+  width: 0px;
+  background: white;
+  -webkit-animation-name: border; /* Safari 4.0 - 8.0 */
+  -webkit-animation-duration: 4s; /* Safari 4.0 - 8.0 */
+  -webkit-animation-fill-mode: forwards; /* Safari 4.0 - 8.0 */
+  animation-name: border;
+  animation-duration: 1s;
+  animation-delay: 1s;
+  animation-fill-mode: forwards;
 }
 
 .header-text {
   position: relative;
   text-align: center;
-  /* max-height: 530px; */
-  /* overflow: hidden; */
+  font-family: "Abril Fatface", cursive;
+  font-size: 20px;
 }
 
 .header-notice {

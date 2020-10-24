@@ -36,7 +36,7 @@ function Navbar() {
                   : "nav-link"
               }
             >
-              Home
+              HOME
             </Link>
           </li>
           <li class="nav-item">
@@ -48,7 +48,7 @@ function Navbar() {
                   : "nav-link"
               }
             >
-              Travel
+              TRAVEL
             </Link>
           </li>
           <li class="nav-item">
@@ -60,7 +60,7 @@ function Navbar() {
                   : "nav-link"
               }
             >
-              Contact
+              CONTACT
             </Link>
           </li>
         </ul>

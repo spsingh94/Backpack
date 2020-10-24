@@ -11,6 +11,7 @@ function Footer() {
           <div className="col s9">
             <Link
               to="/"
+              id="footer-nav-items"
               className={
                 window.location.pathname === "/"
                   ? "nav-link active"
@@ -29,19 +30,43 @@ function Footer() {
           <div className="col s2">
             <ul>
               <li>
-                <a className="footer-nav-items" href="#!">
-                  Home
-                </a>
+                <Link
+                  to="/"
+                  id="footer-nav-items"
+                  className={
+                    window.location.pathname === "/"
+                      ? "nav-link active"
+                      : "nav-link"
+                  }
+                >
+                  HOME
+                </Link>
               </li>
               <li>
-                <a className="footer-nav-items" href="#!">
-                  Travel
-                </a>
+                <Link
+                  to="/travel"
+                  id="footer-nav-items"
+                  className={
+                    window.location.pathname === "/travel"
+                      ? "nav-link active"
+                      : "nav-link"
+                  }
+                >
+                  TRAVEL
+                </Link>
               </li>
               <li>
-                <a className="footer-nav-items" href="#!">
-                  Contact
-                </a>
+                <Link
+                  to="/contact"
+                  id="footer-nav-items"
+                  className={
+                    window.location.pathname === "/contact"
+                      ? "nav-link active"
+                      : "nav-link"
+                  }
+                >
+                  CONTACT
+                </Link>
               </li>
             </ul>
           </div>
@@ -49,7 +74,7 @@ function Footer() {
       </div>
       <div className="footer-copyright">
         <div className="card-footer text-muted">
-          ©2020 Backpack Travel All Rights Reserved
+          ©2020 BACKPACK TRAVEL ALL RIGHTS RESERVED.
         </div>
       </div>
     </footer>
