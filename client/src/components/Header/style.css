@@ -17,4 +17,13 @@
 .header-text {
   position: relative;
   text-align: center;
+  /* max-height: 530px; */
+  /* overflow: hidden; */
+}
+
+.header-notice {
+  background-color: black;
+  opacity: 50%;
+  font-size: 13px;
+  text-align: center;
 }

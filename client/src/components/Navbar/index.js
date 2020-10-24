@@ -1,13 +1,19 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import "./style.css";
 import Backpack from "../../images/backpacklogo.png";
 
 function Navbar() {
   return (
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-      <a class="navbar-brand" href="...">
-        <img className="nav-logo" src={Backpack} alt="backpack-logo" />
-      </a>
+      <Link
+        to="/"
+        className={
+          window.location.pathname === "/" ? "nav-link active" : "nav-link"
+        }
+      >
+        <img src={Backpack} className="logo" alt="backpack-logo" />
+      </Link>
       <button
         class="navbar-toggler"
         type="button"
@@ -22,43 +28,40 @@ function Navbar() {
       <div class="collapse navbar-collapse" id="navbarNavDropdown">
         <ul class="navbar-nav">
           <li class="nav-item active">
-            <a class="nav-link" href="...">
-              Home <span class="sr-only">(current)</span>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="...">
-              Features
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="...">
-              Pricing
-            </a>
-          </li>
-          <li class="nav-item dropdown">
-            <a
-              class="nav-link dropdown-toggle"
-              href="..."
-              id="navbarDropdownMenuLink"
-              role="button"
-              data-toggle="dropdown"
-              aria-haspopup="true"
-              aria-expanded="false"
+            <Link
+              to="/"
+              className={
+                window.location.pathname === "/"
+                  ? "nav-link active"
+                  : "nav-link"
+              }
             >
-              Dropdown link
-            </a>
-            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-              <a class="dropdown-item" href="...">
-                Action
-              </a>
-              <a class="dropdown-item" href="...">
-                Another action
-              </a>
-              <a class="dropdown-item" href="...">
-                Something else here
-              </a>
-            </div>
+              Home
+            </Link>
+          </li>
+          <li class="nav-item">
+            <Link
+              to="/travel"
+              className={
+                window.location.pathname === "/travel"
+                  ? "nav-link active"
+                  : "nav-link"
+              }
+            >
+              Travel
+            </Link>
+          </li>
+          <li class="nav-item">
+            <Link
+              to="/contact"
+              className={
+                window.location.pathname === "/contact"
+                  ? "nav-link active"
+                  : "nav-link"
+              }
+            >
+              Contact
+            </Link>
           </li>
         </ul>
       </div>
