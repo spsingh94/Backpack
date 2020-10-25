@@ -2,6 +2,7 @@
   "name": "backpack",
   "version": "0.1.0",
   "private": true,
+  "proxy": "https://backpack-travelplan.herokuapp.com/",
   "engines": {
     "node": "12.18.x"
   },

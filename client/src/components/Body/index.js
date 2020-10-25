@@ -4,8 +4,8 @@ import ImageStack from "../ImageStack";
 import "./style.css";
 import Indo1 from "../../images/indo1.jpg";
 import Indo2 from "../../images/indo2.png";
-import pic1 from "../../images/map.jpg";
-import pic2 from "../../images/views.jpg";
+import Bromo from "../../images/mtbromo.jpg";
+import Bali from "../../images/bali.jpg";
 
 function Body() {
   return (
@@ -49,7 +49,7 @@ function Body() {
         </Row>
         <Row>
           <Col md="6">
-            <ImageStack src1={pic1} src2={pic2} />
+            <ImageStack src1={Bromo} src2={Bali} />
           </Col>
           <Col md="6">
             <p className="body-text">
