@@ -1,0 +1,18 @@
+.map-location {
+  font-family: "Sansita Swashed", cursive;
+  text-align: center;
+}
+
+.flight-form {
+  margin-left: 250px;
+  margin-right: 250px;
+}
+
+.change-option {
+  margin-right: 100px;
+  cursor: pointer;
+}
+
+.go-button {
+    margin-bottom: 100px;
+}

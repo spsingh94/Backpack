@@ -20,6 +20,7 @@ import endOfMonth from "date-fns/endOfMonth";
 import addDays from "date-fns/addDays";
 import isSameMonth from "date-fns/isSameMonth";
 import isSameDay from "date-fns/isSameDay";
+import "./style.css";
 
 function Generator(props) {
   const [apiResponse, setApiResponse] = useState();
@@ -43,6 +44,8 @@ function Generator(props) {
   const [urlDate, setUrlDate] = useState();
   const [finalTo, setFinalTo] = useState(null);
   const [finalFrom, setFinalFrom] = useState(null);
+  const [showElement, setShowElement] = useState("none");
+  const [elementVisibility, setElementVisibility] = useState("hidden");
 
   console.log(apiResponse);
   console.log(ageUrl);
@@ -180,6 +183,8 @@ function Generator(props) {
     setSelection(e.currentTarget.value);
     let x = Math.floor(Math.random() * 273684 + 1);
     setNumber(x);
+    setShowElement("initial");
+    setElementVisibility("hidden");
   }
 
   // function that gets random country
@@ -187,6 +192,7 @@ function Generator(props) {
     setSelection(e.currentTarget.value);
     let x = Math.floor(Math.random() * 194 + 1);
     setNumber(x);
+    setShowElement("initial");
   }
 
   function selectedCabin(e) {
@@ -239,6 +245,8 @@ function Generator(props) {
       ""
     );
     setAgeUrl(arraySplitter);
+    setShowElement("none");
+    setElementVisibility("visible");
   }
 
   // fields.forEach(selectedChildrenAge);
@@ -439,11 +447,13 @@ function Generator(props) {
 
   return (
     <>
+      <br />
       <Container>
-        <br />
         <Maps src={mapsSource} />
-        <h1>{mapLocation}</h1>
-        <ButtonToolbar style={{ justifyContent: "center" }}>
+        <h2 className="map-location" style={{ display: showElement }}>
+          Pack Your Bags, You're Going to {mapLocation} !
+        </h2>
+        <ButtonToolbar style={{ justifyContent: "center", paddingTop: "20px" }}>
           <ButtonGroup>
             <Button
               id="city"
@@ -464,156 +474,178 @@ function Generator(props) {
           </ButtonGroup>
         </ButtonToolbar>
         <br />
-        <div class="input-group mb-3">
-          <select
-            class="custom-select"
-            id="inputGroupSelect01"
-            onChange={selectedCabin}
-          >
-            <option selected>Please Choose Your Cabin Class</option>
-            <option value="economy">Economy</option>
-            <option value="premiumeconomy">Premium Economy</option>
-            <option value="business">Business Class</option>
-            <option value="first">First Class</option>
-          </select>
+        <div className="flight-form" style={{ display: showElement }}>
+          <div class="input-group mb-3">
+            <select
+              class="custom-select"
+              id="inputGroupSelect01"
+              onChange={selectedCabin}
+            >
+              <option selected>Please Choose Your Cabin Class</option>
+              <option value="economy">Economy</option>
+              <option value="premiumeconomy">Premium Economy</option>
+              <option value="business">Business Class</option>
+              <option value="first">First Class</option>
+            </select>
+          </div>
+
+          {/* <incrementer */}
+          <Row>
+            <div>
+              <h5>Adults</h5>
+              <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <Button
+                    class="btn btn-outline-secondary"
+                    type="button"
+                    id="button-addon1"
+                    onClick={decrementAdults}
+                  >
+                    -
+                  </Button>
+                </div>
+                <p
+                  style={{
+                    fontSize: "20px",
+                    marginLeft: "10px",
+                    marginRight: "10px",
+                  }}
+                >
+                  {adults}
+                </p>
+                <div class="input-group-prepend">
+                  <Button
+                    class="btn btn-outline-secondary"
+                    type="button"
+                    id="button-addon1"
+                    onClick={incrementAdults}
+                  >
+                    +
+                  </Button>
+                </div>
+              </div>
+            </div>
+
+            <div>
+              <h5>Children</h5>
+              <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <Button
+                    class="btn btn-outline-secondary"
+                    type="button"
+                    id="button-addon1"
+                    onClick={decrementChildren}
+                  >
+                    -
+                  </Button>
+                </div>
+                <p
+                  style={{
+                    fontSize: "20px",
+                    marginLeft: "10px",
+                    marginRight: "10px",
+                  }}
+                >
+                  {children}
+                </p>
+                <div class="input-group-prepend">
+                  <Button
+                    class="btn btn-outline-secondary"
+                    type="button"
+                    id="button-addon1"
+                    onClick={incrementChildren}
+                  >
+                    +
+                  </Button>
+
+                  {fields.map((field, idx) => {
+                    return (
+                      <div key={`${field}-${idx}`}>
+                        <select
+                          class="custom-select"
+                          id="inputGroupSelect01"
+                          onChange={(e) => selectedChildrenAge(idx, e)}
+                        >
+                          <option selected>Please Choose Childs Age</option>
+                          <option value="1">1</option>
+                          <option value="2">2</option>
+                          <option value="3">3</option>
+                          <option value="4">4</option>
+                          <option value="5">5</option>
+                          <option value="6">6</option>
+                          <option value="7">7</option>
+                          <option value="8">8</option>
+                          <option value="9">9</option>
+                          <option value="10">10</option>
+                          <option value="11">11</option>
+                          <option value="12">12</option>
+                        </select>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+            </div>
+          </Row>
+          <Calendar>
+            <Col sm="6">
+              <div className="calendar">
+                <div>{header()}</div>
+                <div>{days()}</div>
+                <div>{cells()}</div>
+              </div>
+            </Col>
+            <Col sm="6">
+              <div className="calendar">
+                <div>{toHeader()}</div>
+                <div>{toDays()}</div>
+                <div>{toCells()}</div>
+              </div>
+            </Col>
+          </Calendar>
+          {props.children}
+          <ButtonToolbar style={{ justifyContent: "flex-end" }}>
+            <ButtonGroup>
+              <Button
+                onClick={flipArray}
+                style={{
+                  display: showElement,
+                  marginRight: "50px",
+                  marginTop: "30px",
+                }}
+              >
+                Done
+              </Button>
+            </ButtonGroup>
+          </ButtonToolbar>
         </div>
-
-        {/* <incrementer */}
-        <Row>
-          <div>
-            <h5>Adults</h5>
-            <div class="input-group mb-3">
-              <div class="input-group-prepend">
-                <Button
-                  class="btn btn-outline-secondary"
-                  type="button"
-                  id="button-addon1"
-                  onClick={decrementAdults}
-                >
-                  -
-                </Button>
-              </div>
-              <p
-                style={{
-                  fontSize: "20px",
-                  marginLeft: "10px",
-                  marginRight: "10px",
-                }}
-              >
-                {adults}
-              </p>
-              <div class="input-group-prepend">
-                <Button
-                  class="btn btn-outline-secondary"
-                  type="button"
-                  id="button-addon1"
-                  onClick={incrementAdults}
-                >
-                  +
-                </Button>
-              </div>
-            </div>
-          </div>
-
-          <div>
-            <h5>Children</h5>
-            <div class="input-group mb-3">
-              <div class="input-group-prepend">
-                <Button
-                  class="btn btn-outline-secondary"
-                  type="button"
-                  id="button-addon1"
-                  onClick={decrementChildren}
-                >
-                  -
-                </Button>
-              </div>
-              <p
-                style={{
-                  fontSize: "20px",
-                  marginLeft: "10px",
-                  marginRight: "10px",
-                }}
-              >
-                {children}
-              </p>
-              <div class="input-group-prepend">
-                <Button
-                  class="btn btn-outline-secondary"
-                  type="button"
-                  id="button-addon1"
-                  onClick={incrementChildren}
-                >
-                  +
-                </Button>
-
-                {fields.map((field, idx) => {
-                  return (
-                    <div key={`${field}-${idx}`}>
-                      <select
-                        class="custom-select"
-                        id="inputGroupSelect01"
-                        onChange={(e) => selectedChildrenAge(idx, e)}
-                      >
-                        <option selected>Please Choose Childs Age</option>
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                        <option value="4">4</option>
-                        <option value="5">5</option>
-                        <option value="6">6</option>
-                        <option value="7">7</option>
-                        <option value="8">8</option>
-                        <option value="9">9</option>
-                        <option value="10">10</option>
-                        <option value="11">11</option>
-                        <option value="12">12</option>
-                      </select>
-                    </div>
-                  );
-                })}
-              </div>
-            </div>
-          </div>
-        </Row>
-        <Calendar>
-          <Col sm="6">
-            <div className="calendar">
-              <div>{header()}</div>
-              <div>{days()}</div>
-              <div>{cells()}</div>
-            </div>
-          </Col>
-          <Col sm="6">
-            <div className="calendar">
-              <div>{toHeader()}</div>
-              <div>{toDays()}</div>
-              <div>{toCells()}</div>
-            </div>
-          </Col>
-        </Calendar>
-        {props.children}
-        <ButtonToolbar style={{ justifyContent: "flex-end" }}>
+        <p style={{ textAlign: "end", visibility: elementVisibility }} onClick={selectedCity} className="change-option">
+          Make Changes +
+        </p>
+        <ButtonToolbar
+          style={{ justifyContent: "center", visibility: elementVisibility }}
+        >
           <ButtonGroup>
-            <Button onClick={flipArray}>Done</Button>
+            <Button
+              onClick={() => {
+                if (children > 1) {
+                  window.open(
+                    `https://www.skyscanner.com/transport/flights/${currAirportCode}/${destAirportCode}/${urlDate}/?adults=${adults}&adultsv2=${adults}&cabinclass=${cabin}&children=${children}&childrenv2=${ageUrl}&destinationentityid=27545162&inboundaltsenabled=false&infants=0&originentityid=27544948&outboundaltsenabled=false&preferdirects=false&preferflexible=false&ref=home&rtn=1`
+                  );
+                  // flipArray();
+                } else {
+                  window.open(
+                    `https://www.skyscanner.com/transport/flights/${currAirportCode}/${destAirportCode}/${urlDate}/?adults=${adults}&adultsv2=${adults}&cabinclass=${cabin}&children=0&childrenv2=&destinationentityid=46516321&destinationgsid=46516321&inboundaltsenabled=false&infants=0&originentityid=27544948&outboundaltsenabled=false&preferdirects=false&preferflexible=false&ref=home&rtn=1`
+                  );
+                }
+              }}
+              className="go-button"
+              style={{ display: "flex", justifyContent: "center" }}
+            >
+              View Tickets
+            </Button>
           </ButtonGroup>
         </ButtonToolbar>
-        <Button
-          onClick={() => {
-            if (children > 1) {
-              window.open(
-                `https://www.skyscanner.com/transport/flights/${currAirportCode}/${destAirportCode}/${urlDate}/?adults=${adults}&adultsv2=${adults}&cabinclass=${cabin}&children=${children}&childrenv2=${ageUrl}&destinationentityid=27545162&inboundaltsenabled=false&infants=0&originentityid=27544948&outboundaltsenabled=false&preferdirects=false&preferflexible=false&ref=home&rtn=1`
-              );
-              // flipArray();
-            } else {
-              window.open(
-                `https://www.skyscanner.com/transport/flights/${currAirportCode}/${destAirportCode}/${urlDate}/?adults=${adults}&adultsv2=${adults}&cabinclass=${cabin}&children=0&childrenv2=&destinationentityid=46516321&destinationgsid=46516321&inboundaltsenabled=false&infants=0&originentityid=27544948&outboundaltsenabled=false&preferdirects=false&preferflexible=false&ref=home&rtn=1`
-              );
-            }
-          }}
-        >
-          Redirect
-        </Button>
       </Container>
     </>
   );

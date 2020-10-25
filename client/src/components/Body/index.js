@@ -2,6 +2,8 @@ import React from "react";
 import { Container, Row, Col } from "reactstrap";
 import ImageStack from "../ImageStack";
 import "./style.css";
+import Indo1 from "../../images/indo1.jpg";
+import Indo2 from "../../images/indo2.png";
 import pic1 from "../../images/map.jpg";
 import pic2 from "../../images/views.jpg";
 
@@ -42,7 +44,7 @@ function Body() {
             </p>
           </Col>
           <Col md="6">
-            <ImageStack src1={pic1} src2={pic2} />
+            <ImageStack src1={Indo2} src2={Indo1} />
           </Col>
         </Row>
         <Row>
