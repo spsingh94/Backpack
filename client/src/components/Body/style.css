@@ -1,0 +1,15 @@
+.body-title {
+  font-family: "Pacifico", cursive;
+  position: relative;
+  text-align: center;
+  margin-top: 30px;
+  font-size: 45px;
+}
+
+.body-text {
+  text-align: left;
+}
+
+.body-column{
+  padding-top: 30px;
+}

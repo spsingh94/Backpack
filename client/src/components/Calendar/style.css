@@ -93,7 +93,7 @@ border-bottom: 1px solid lightgray;
 }
 .calendar .body .cell {
 position: relative;
-height: 6em;
+height: 30px;
 border-right: 1px solid lightgray;
 overflow: hidden;
 cursor: pointer;

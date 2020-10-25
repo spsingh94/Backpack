@@ -8,7 +8,7 @@ export function Maps(props){
 className="google-maps-frame"
 title="google-maps"
 width="95%"
-height="600"
+height="500"
 frameBorder="0"
 allowFullScreen
 {...props}

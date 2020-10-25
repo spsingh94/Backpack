@@ -1,9 +1,27 @@
-import React, { useState, useEffect, useContext } from "react";
-import { DateContext } from "../Calendar";
+import React, { useState, useEffect } from "react";
+import {
+  Container,
+  Row,
+  Button,
+  ButtonGroup,
+  ButtonToolbar,
+  Col,
+} from "reactstrap";
+import Calendar from "../Calendar";
 import fetch from "node-fetch";
 import { Maps } from "../Maps";
+import { format } from "date-fns";
+import addMonths from "date-fns/addMonths";
+import subMonths from "date-fns/subMonths";
+import startOfWeek from "date-fns/startOfWeek";
+import endOfWeek from "date-fns/endOfWeek";
+import startOfMonth from "date-fns/startOfMonth";
+import endOfMonth from "date-fns/endOfMonth";
+import addDays from "date-fns/addDays";
+import isSameMonth from "date-fns/isSameMonth";
+import isSameDay from "date-fns/isSameDay";
 
-function Generator() {
+function Generator(props) {
   const [apiResponse, setApiResponse] = useState();
   const [responseArray, setResponseArray] = useState(null);
   const [selection, setSelection] = useState(null);
@@ -19,9 +37,12 @@ function Generator() {
   const [cabin, setCabin] = useState();
   const [fields, setFields] = useState([]);
   const [ageUrl, setAgeUrl] = useState();
-
-  const calendarDate = useContext(DateContext);
-  // const toCalendarDate = useContext(ToDateContext);
+  const [currentDate, setCurrentDate] = useState(new Date());
+  const [fromSelectedDate, setFromSelectedDate] = useState(null);
+  const [toSelectedDate, setToSelectedDate] = useState(null);
+  const [urlDate, setUrlDate] = useState();
+  const [finalTo, setFinalTo] = useState(null);
+  const [finalFrom, setFinalFrom] = useState(null);
 
   console.log(apiResponse);
   console.log(ageUrl);
@@ -34,12 +55,17 @@ function Generator() {
   console.log(children);
   console.log(fields);
   // console.log(toCalendarDate);
-  console.log(calendarDate);
 
   const rapidKey = process.env.REACT_APP_RAPID_KEY;
   const googleKey = process.env.REACT_APP_GOOGLE_KEY;
 
   const mapsSource = `https://www.google.com/maps/embed/v1/place?key=${googleKey}&q=${mapLocation}`;
+
+  useEffect(() => {
+    if (finalFrom != null && finalTo != null) {
+      setUrlDate(finalFrom + "/" + finalTo);
+    }
+  }, [finalFrom, finalTo]);
 
   useEffect(() => {
     if (currentLocation === undefined) {
@@ -227,173 +253,368 @@ function Generator() {
     }
   }
 
+  // calendar functionality
+  const header = () => {
+    const dateFormat = "MMMM yyyy";
+    return (
+      <div className="header row flex-middle">
+        <div className="column col-start">
+          <div className="icon" onClick={prevMonth}>
+            chevron_left
+          </div>
+        </div>
+        <div className="column col-center">
+          <span>{format(currentDate, dateFormat)}</span>
+        </div>
+        <div className="column col-end">
+          <div className="icon" onClick={nextMonth}>
+            chevron_right
+          </div>
+        </div>
+      </div>
+    );
+  };
+
+  const toHeader = () => {
+    const dateFormat = "MMMM yyyy";
+    return (
+      <div className="header row flex-middle">
+        <div className="column col-start">
+          <div className="icon" onClick={prevMonth}>
+            chevron_left
+          </div>
+        </div>
+        <div className="column col-center">
+          <span>{format(currentDate, dateFormat)}</span>
+        </div>
+        <div className="column col-end">
+          <div className="icon" onClick={nextMonth}>
+            chevron_right
+          </div>
+        </div>
+      </div>
+    );
+  };
+
+  const days = () => {
+    const dateFormat = "ddd";
+    const days = [];
+    let startDate = startOfWeek(currentDate);
+    for (let i = 0; i < 7; i++) {
+      days.push(
+        <div className="column col-center" key={i}>
+          {format(addDays(startDate, i), dateFormat)}
+        </div>
+      );
+    }
+    return <div className="days row">{days}</div>;
+  };
+
+  const toDays = () => {
+    const dateFormat = "ddd";
+    const days = [];
+    let startDate = startOfWeek(currentDate);
+    for (let i = 0; i < 7; i++) {
+      days.push(
+        <div className="column col-center" key={i}>
+          {format(addDays(startDate, i), dateFormat)}
+        </div>
+      );
+    }
+    return <div className="days row">{days}</div>;
+  };
+
+  const cells = () => {
+    const monthStart = startOfMonth(currentDate);
+    const monthEnd = endOfMonth(monthStart);
+    const startDate = startOfWeek(monthStart);
+    const endDate = endOfWeek(monthEnd);
+    const dateFormat = "d";
+    const rows = [];
+    let days = [];
+    let day = startDate;
+    let formattedDate = "";
+    while (day <= endDate) {
+      for (let i = 0; i < 7; i++) {
+        formattedDate = format(day, dateFormat);
+        const cloneDay = day;
+        days.push(
+          <div
+            className={`column cell ${
+              !isSameMonth(day, monthStart)
+                ? "disabled"
+                : isSameDay(day, fromSelectedDate)
+                ? "selected"
+                : ""
+            }`}
+            key={day}
+            onClick={() => onFromDateClick(cloneDay)}
+          >
+            <span className="number">{formattedDate}</span>
+            <span className="bg">{formattedDate}</span>
+          </div>
+        );
+        day = addDays(day, 1);
+      }
+      rows.push(
+        <div className="row" key={day}>
+          {" "}
+          {days}{" "}
+        </div>
+      );
+      days = [];
+    }
+    return <div className="body">{rows}</div>;
+  };
+
+  const toCells = () => {
+    const monthStart = startOfMonth(currentDate);
+    const monthEnd = endOfMonth(monthStart);
+    const startDate = startOfWeek(monthStart);
+    const endDate = endOfWeek(monthEnd);
+    const dateFormat = "d";
+    const rows = [];
+    let days = [];
+    let today = startDate;
+    let formattedDate = "";
+    while (today <= endDate) {
+      for (let i = 0; i < 7; i++) {
+        formattedDate = format(today, dateFormat);
+        const cloneDay = today;
+        days.push(
+          <div
+            className={`column cell ${
+              !isSameMonth(today, monthStart)
+                ? "disabled"
+                : isSameDay(today, toSelectedDate)
+                ? "selected"
+                : ""
+            }`}
+            key={today}
+            onClick={() => onToDateClick(cloneDay)}
+          >
+            <span className="number">{formattedDate}</span>
+            <span className="bg">{formattedDate}</span>
+          </div>
+        );
+        today = addDays(today, 1);
+      }
+      rows.push(
+        <div className="row" key={today}>
+          {" "}
+          {days}{" "}
+        </div>
+      );
+      days = [];
+    }
+    return <div className="body">{rows}</div>;
+  };
+  const nextMonth = () => {
+    setCurrentDate(addMonths(currentDate, 1));
+  };
+  const prevMonth = () => {
+    setCurrentDate(subMonths(currentDate, 1));
+  };
+
+  function onFromDateClick(day) {
+    setFromSelectedDate(day);
+    let fromStringer = JSON.stringify(day);
+    let fromSlicer = fromStringer.slice(3, 11);
+    let fromSeperator = fromSlicer.split(["-"]);
+    const fromDataString = JSON.stringify(fromSeperator);
+    let fromCleaner = fromDataString.replace(/{|}|[[\]]|,|"|"|/gi, "");
+    setFinalFrom(fromCleaner);
+  }
+
+  function onToDateClick(today) {
+    setToSelectedDate(today);
+    let stringer = JSON.stringify(today);
+    let slicer = stringer.slice(3, 11);
+    let seperator = slicer.split(["-"]);
+    const dataString = JSON.stringify(seperator);
+    let cleaner = dataString.replace(/{|}|[[\]]|,|"|"|/gi, "");
+    setFinalTo(cleaner);
+  }
+  // calendar functionality
+
   return (
     <>
-      <input
-        type="radio"
-        id="city"
-        name="location"
-        value="cities"
-        onChange={selectedCity}
-      />
-      <label htmlFor="city">City</label>
-      <br></br>
-      <input
-        type="radio"
-        id="country"
-        name="location"
-        value="countries"
-        onChange={selectedCountry}
-      />
-      <label htmlFor="country">Country</label>
-      <br></br>
-      <br />
-      <h1>{mapLocation}</h1>
-
-      <Maps src={mapsSource} />
-
-      <br />
-
-      {/* used to select cabin */}
-      <div class="input-group mb-3">
-        <select
-          class="custom-select"
-          id="inputGroupSelect01"
-          onChange={selectedCabin}
-        >
-          <option selected>Please Choose Your Cabin Class</option>
-          <option value="economy">Economy</option>
-          <option value="premiumeconomy">Premium Economy</option>
-          <option value="business">Business Class</option>
-          <option value="first">First Class</option>
-        </select>
-      </div>
-
-      {/* <incrementer */}
-      <div>
-        <h1>Adults</h1>
+      <Container>
+        <br />
+        <Maps src={mapsSource} />
+        <h1>{mapLocation}</h1>
+        <ButtonToolbar style={{ justifyContent: "center" }}>
+          <ButtonGroup>
+            <Button
+              id="city"
+              name="location"
+              value="cities"
+              onClick={selectedCity}
+            >
+              City
+            </Button>
+            <Button
+              id="country"
+              name="location"
+              value="countries"
+              onClick={selectedCountry}
+            >
+              Country
+            </Button>
+          </ButtonGroup>
+        </ButtonToolbar>
+        <br />
         <div class="input-group mb-3">
-          <div class="input-group-prepend">
-            <button
-              class="btn btn-outline-secondary"
-              type="button"
-              id="button-addon1"
-              onClick={decrementAdults}
-            >
-              -
-            </button>
-          </div>
-          <p
-            style={{
-              fontSize: "40px",
-              marginLeft: "10px",
-              marginRight: "10px",
-            }}
+          <select
+            class="custom-select"
+            id="inputGroupSelect01"
+            onChange={selectedCabin}
           >
-            {adults}
-          </p>
-          <div class="input-group-prepend">
-            <button
-              class="btn btn-outline-secondary"
-              type="button"
-              id="button-addon1"
-              onClick={incrementAdults}
-            >
-              +
-            </button>
-          </div>
+            <option selected>Please Choose Your Cabin Class</option>
+            <option value="economy">Economy</option>
+            <option value="premiumeconomy">Premium Economy</option>
+            <option value="business">Business Class</option>
+            <option value="first">First Class</option>
+          </select>
         </div>
-      </div>
 
-      <div>
-        <h1>Children</h1>
-        <div class="input-group mb-3">
-          <div class="input-group-prepend">
-            <button
-              class="btn btn-outline-secondary"
-              type="button"
-              id="button-addon1"
-              onClick={decrementChildren}
-            >
-              -
-            </button>
+        {/* <incrementer */}
+        <Row>
+          <div>
+            <h5>Adults</h5>
+            <div class="input-group mb-3">
+              <div class="input-group-prepend">
+                <Button
+                  class="btn btn-outline-secondary"
+                  type="button"
+                  id="button-addon1"
+                  onClick={decrementAdults}
+                >
+                  -
+                </Button>
+              </div>
+              <p
+                style={{
+                  fontSize: "20px",
+                  marginLeft: "10px",
+                  marginRight: "10px",
+                }}
+              >
+                {adults}
+              </p>
+              <div class="input-group-prepend">
+                <Button
+                  class="btn btn-outline-secondary"
+                  type="button"
+                  id="button-addon1"
+                  onClick={incrementAdults}
+                >
+                  +
+                </Button>
+              </div>
+            </div>
           </div>
-          <p
-            style={{
-              fontSize: "40px",
-              marginLeft: "10px",
-              marginRight: "10px",
-            }}
-          >
-            {children}
-          </p>
-          <div class="input-group-prepend">
-            <button
-              class="btn btn-outline-secondary"
-              type="button"
-              id="button-addon1"
-              onClick={incrementChildren}
-            >
-              +
-            </button>
 
-            {fields.map((field, idx) => {
-              return (
-                <div key={`${field}-${idx}`}>
-                  <select
-                    class="custom-select"
-                    id="inputGroupSelect01"
-                    onChange={(e) => selectedChildrenAge(idx, e)}
-                  >
-                    <option selected>Please Choose Childs Age</option>
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option value="5">5</option>
-                    <option value="6">6</option>
-                    <option value="7">7</option>
-                    <option value="8">8</option>
-                    <option value="9">9</option>
-                    <option value="10">10</option>
-                    <option value="11">11</option>
-                    <option value="12">12</option>
-                  </select>
-                </div>
+          <div>
+            <h5>Children</h5>
+            <div class="input-group mb-3">
+              <div class="input-group-prepend">
+                <Button
+                  class="btn btn-outline-secondary"
+                  type="button"
+                  id="button-addon1"
+                  onClick={decrementChildren}
+                >
+                  -
+                </Button>
+              </div>
+              <p
+                style={{
+                  fontSize: "20px",
+                  marginLeft: "10px",
+                  marginRight: "10px",
+                }}
+              >
+                {children}
+              </p>
+              <div class="input-group-prepend">
+                <Button
+                  class="btn btn-outline-secondary"
+                  type="button"
+                  id="button-addon1"
+                  onClick={incrementChildren}
+                >
+                  +
+                </Button>
+
+                {fields.map((field, idx) => {
+                  return (
+                    <div key={`${field}-${idx}`}>
+                      <select
+                        class="custom-select"
+                        id="inputGroupSelect01"
+                        onChange={(e) => selectedChildrenAge(idx, e)}
+                      >
+                        <option selected>Please Choose Childs Age</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                        <option value="10">10</option>
+                        <option value="11">11</option>
+                        <option value="12">12</option>
+                      </select>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          </div>
+        </Row>
+        <Calendar>
+          <Col sm="6">
+            <div className="calendar">
+              <div>{header()}</div>
+              <div>{days()}</div>
+              <div>{cells()}</div>
+            </div>
+          </Col>
+          <Col sm="6">
+            <div className="calendar">
+              <div>{toHeader()}</div>
+              <div>{toDays()}</div>
+              <div>{toCells()}</div>
+            </div>
+          </Col>
+        </Calendar>
+        {props.children}
+        <ButtonToolbar style={{ justifyContent: "flex-end" }}>
+          <ButtonGroup>
+            <Button onClick={flipArray}>Done</Button>
+          </ButtonGroup>
+        </ButtonToolbar>
+        <Button
+          onClick={() => {
+            if (children > 1) {
+              window.open(
+                `https://www.skyscanner.com/transport/flights/${currAirportCode}/${destAirportCode}/${urlDate}/?adults=${adults}&adultsv2=${adults}&cabinclass=${cabin}&children=${children}&childrenv2=${ageUrl}&destinationentityid=27545162&inboundaltsenabled=false&infants=0&originentityid=27544948&outboundaltsenabled=false&preferdirects=false&preferflexible=false&ref=home&rtn=1`
               );
-            })}
-          </div>
-        </div>
-      </div>
-      <button
-        onClick={() => {
-          if (children > 1) {
-            window.open(
-              `https://www.skyscanner.com/transport/flights/${currAirportCode}/${destAirportCode}/${calendarDate}/?adults=${adults}&adultsv2=${adults}&cabinclass=${cabin}&children=${children}&childrenv2=${ageUrl}&destinationentityid=27545162&inboundaltsenabled=false&infants=0&originentityid=27544948&outboundaltsenabled=false&preferdirects=false&preferflexible=false&ref=home&rtn=1`
-            );
-            // flipArray();
-          } else {
-            window.open(
-              `https://www.skyscanner.com/transport/flights/${currAirportCode}/${destAirportCode}/${calendarDate}/?adults=${adults}&adultsv2=${adults}&cabinclass=${cabin}&children=0&childrenv2=&destinationentityid=46516321&destinationgsid=46516321&inboundaltsenabled=false&infants=0&originentityid=27544948&outboundaltsenabled=false&preferdirects=false&preferflexible=false&ref=home&rtn=1`
-            );
-          }
-        }}
-      >
-        Redirect
-      </button>
-
-      <button onClick={flipArray}>flip</button>
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
+              // flipArray();
+            } else {
+              window.open(
+                `https://www.skyscanner.com/transport/flights/${currAirportCode}/${destAirportCode}/${urlDate}/?adults=${adults}&adultsv2=${adults}&cabinclass=${cabin}&children=0&childrenv2=&destinationentityid=46516321&destinationgsid=46516321&inboundaltsenabled=false&infants=0&originentityid=27544948&outboundaltsenabled=false&preferdirects=false&preferflexible=false&ref=home&rtn=1`
+              );
+            }
+          }}
+        >
+          Redirect
+        </Button>
+      </Container>
     </>
   );
 }

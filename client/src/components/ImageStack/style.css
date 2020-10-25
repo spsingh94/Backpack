@@ -1,0 +1,28 @@
+.image-stack {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  position: relative;
+  padding-top: 30px;
+  padding-bottom: 60px;
+}
+
+.image-stack__item--top {
+  grid-column: 1 / span 12;
+  grid-row: 1;
+  padding-top: 12%;
+  z-index: 1;
+}
+
+.image-stack__item--bottom {
+  grid-column: 4 / -1;
+  grid-row: 1;
+  size: 1rem;
+  padding-left: 5%;
+}
+
+.stack-image {
+  height: 450px;
+  width: 300px;
+  border-radius: 20px;
+  filter: drop-shadow(0 0 0.75rem);
+}
