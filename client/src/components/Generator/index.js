@@ -29,7 +29,7 @@ function Generator(props) {
   const [location, setLocation] = useState(null);
   const [number, setNumber] = useState();
   const [currentLocation, setCurrentLocation] = useState(undefined);
-  const [mapLocation, setMapLocation] = useState();
+  const [mapLocation, setMapLocation] = useState(null);
   const [locationCords, setLocationCords] = useState(null);
   const [destAirportCode, setDestAirportCode] = useState(null);
   const [currAirportCode, setCurrAirportCode] = useState(null);
@@ -156,7 +156,7 @@ function Generator(props) {
 
   //setting the airports for the current location into an array
   useEffect(() => {
-    if (currentLocation != null || currentLocation !== undefined) {
+    if (mapLocation != null) {
       fetch(
         `https://rapidapi.p.rapidapi.com/airports/search/location/${currentLocation[0]}/${currentLocation[1]}/km/100/5?withFlightInfoOnly=false`,
         {
