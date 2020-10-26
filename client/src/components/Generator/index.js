@@ -156,7 +156,7 @@ function Generator(props) {
 
   //setting the airports for the current location into an array
   useEffect(() => {
-    if (currentLocation != null || currentLocation !== undefined) {
+    if (currentLocation != null) {
       fetch(
         `https://rapidapi.p.rapidapi.com/airports/search/location/${currentLocation[0]}/${currentLocation[1]}/km/100/5?withFlightInfoOnly=false`,
         {
@@ -169,6 +169,7 @@ function Generator(props) {
       )
         .then((response) => response.json())
         .then((data) => {
+          setCurrentLocation(null);
           console.log(data);
           setCurrAirportCode(data.items[0].iata);
         })
