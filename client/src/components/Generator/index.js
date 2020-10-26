@@ -82,31 +82,10 @@ function Generator(props) {
   });
 
   useEffect(() => {
-    if (
-      selection != null &&
-      (currentLocation != null || currentLocation !== undefined)
-    ) {
-      fetch(
-        `https://rapidapi.p.rapidapi.com/airports/search/location/${currentLocation[0]}/${currentLocation[1]}/km/100/5?withFlightInfoOnly=false`,
-        {
-          method: "GET",
-          headers: {
-            "x-rapidapi-host": "aerodatabox.p.rapidapi.com",
-            "x-rapidapi-key": `${rapidKey}`,
-          },
-        }
-      )
-        .then((response) => response.json())
-        .then((data) => {
-          console.log(data);
-          setLocation(selection);
-          setCurrAirportCode(data.items[0].iata);
-        })
-        .catch((err) => {
-          console.error(err);
-        });
+    if (selection != null) {
+      setLocation(selection);
     }
-  }, [selection, currentLocation]);
+  }, [selection]);
 
   useEffect(() => {
     if (location != null) {
@@ -176,28 +155,28 @@ function Generator(props) {
   }, [rapidKey, locationCords]);
 
   //setting the airports for the current location into an array
-  // useEffect(() => {
-  //   if (currentLocation != null || currentLocation !== undefined) {
-  //     fetch(
-  //       `https://rapidapi.p.rapidapi.com/airports/search/location/${currentLocation[0]}/${currentLocation[1]}/km/100/5?withFlightInfoOnly=false`,
-  //       {
-  //         method: "GET",
-  //         headers: {
-  //           "x-rapidapi-host": "aerodatabox.p.rapidapi.com",
-  //           "x-rapidapi-key": `${rapidKey}`,
-  //         },
-  //       }
-  //     )
-  //       .then((response) => response.json())
-  //       .then((data) => {
-  //         console.log(data);
-  //         setCurrAirportCode(data.items[0].iata);
-  //       })
-  //       .catch((err) => {
-  //         console.error(err);
-  //       });
-  //   }
-  // }, [rapidKey, currentLocation]);
+  useEffect(() => {
+    if (currentLocation != null || currentLocation !== undefined) {
+      fetch(
+        `https://rapidapi.p.rapidapi.com/airports/search/location/${currentLocation[0]}/${currentLocation[1]}/km/100/5?withFlightInfoOnly=false`,
+        {
+          method: "GET",
+          headers: {
+            "x-rapidapi-host": "aerodatabox.p.rapidapi.com",
+            "x-rapidapi-key": `${rapidKey}`,
+          },
+        }
+      )
+        .then((response) => response.json())
+        .then((data) => {
+          console.log(data);
+          setCurrAirportCode(data.items[0].iata);
+        })
+        .catch((err) => {
+          console.error(err);
+        });
+    }
+  }, [rapidKey, currentLocation]);
 
   // function that gets random city
   function selectedCity(e) {
@@ -640,11 +619,7 @@ function Generator(props) {
             </ButtonGroup>
           </ButtonToolbar>
         </div>
-        <p
-          style={{ textAlign: "end", visibility: elementVisibility }}
-          onClick={selectedCity}
-          className="change-option"
-        >
+        <p style={{ textAlign: "end", visibility: elementVisibility }} onClick={selectedCity} className="change-option">
           Make Changes +
         </p>
         <ButtonToolbar
