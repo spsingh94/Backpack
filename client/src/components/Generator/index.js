@@ -45,7 +45,8 @@ function Generator(props) {
   const [finalTo, setFinalTo] = useState(null);
   const [finalFrom, setFinalFrom] = useState(null);
   const [showElement, setShowElement] = useState("none");
-  const [elementVisibility, setElementVisibility] = useState("hidden");
+  const [goVisibility, setGoVisibility] = useState("hidden");
+  const [locationVisibility, setLocationVisibility] = useState("visible");
 
   console.log(apiResponse);
   console.log(ageUrl);
@@ -70,16 +71,17 @@ function Generator(props) {
     }
   }, [finalFrom, finalTo]);
 
-  useEffect(() => {
-    if (currentLocation === undefined) {
-      navigator.geolocation.getCurrentPosition(function (position) {
-        setCurrentLocation([
-          position.coords.latitude,
-          position.coords.longitude,
-        ]);
-      });
-    }
-  });
+  // useEffect(() => {
+  //   if (currentLocation === undefined) {
+  //     navigator.geolocation.getCurrentPosition(function (position) {
+  //       setCurrentLocation([
+  //         position.coords.latitude,
+  //         position.coords.longitude,
+  //       ]);
+  //     });
+  //     setLocationVisibility("visible");
+  //   }
+  // }, [currentLocation]);
 
   useEffect(() => {
     if (selection != null) {
@@ -185,7 +187,7 @@ function Generator(props) {
     let x = Math.floor(Math.random() * 273684 + 1);
     setNumber(x);
     setShowElement("initial");
-    setElementVisibility("hidden");
+    setGoVisibility("hidden");
   }
 
   // function that gets random country
@@ -247,7 +249,7 @@ function Generator(props) {
     );
     setAgeUrl(arraySplitter);
     setShowElement("none");
-    setElementVisibility("visible");
+    setGoVisibility("visible");
   }
 
   // fields.forEach(selectedChildrenAge);
@@ -446,6 +448,13 @@ function Generator(props) {
   }
   // calendar functionality
 
+  function updateCurrentLocation() {
+    navigator.geolocation.getCurrentPosition(function (position) {
+      setCurrentLocation([position.coords.latitude, position.coords.longitude]);
+    });
+    setLocationVisibility("hidden");
+  }
+
   return (
     <>
       <br />
@@ -475,6 +484,30 @@ function Generator(props) {
           </ButtonGroup>
         </ButtonToolbar>
         <br />
+        <div
+          className="get-current"
+          style={{ visibility: locationVisibility }}
+          onClick={updateCurrentLocation}
+        >
+          <svg
+            width="4em"
+            height="4em"
+            viewBox="0 0 16 16"
+            class="bi bi-geo-alt"
+            fill="currentColor"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              fill-rule="evenodd"
+              d="M12.166 8.94C12.696 7.867 13 6.862 13 6A5 5 0 0 0 3 6c0 .862.305 1.867.834 2.94.524 1.062 1.234 2.12 1.96 3.07A31.481 31.481 0 0 0 8 14.58l.208-.22a31.493 31.493 0 0 0 1.998-2.35c.726-.95 1.436-2.008 1.96-3.07zM8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10z"
+            />
+            <path
+              fill-rule="evenodd"
+              d="M8 8a2 2 0 1 0 0-4 2 2 0 0 0 0 4zm0 1a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"
+            />
+          </svg>
+          <p>Current Location</p>
+        </div>
         <div className="flight-form" style={{ display: showElement }}>
           <div class="input-group mb-3">
             <select
@@ -620,11 +653,15 @@ function Generator(props) {
             </ButtonGroup>
           </ButtonToolbar>
         </div>
-        <p style={{ textAlign: "end", visibility: elementVisibility }} onClick={selectedCity} className="change-option">
+        <p
+          style={{ textAlign: "end", visibility: goVisibility }}
+          onClick={selectedCity}
+          className="change-option"
+        >
           Make Changes +
         </p>
         <ButtonToolbar
-          style={{ justifyContent: "center", visibility: elementVisibility }}
+          style={{ justifyContent: "center", visibility: goVisibility }}
         >
           <ButtonGroup>
             <Button

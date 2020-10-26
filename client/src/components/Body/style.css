@@ -8,8 +8,10 @@
 
 .body-text {
   text-align: left;
+  font-size: 18px;
+  line-height: 1.6;
 }
 
 .body-column{
-  padding-top: 30px;
+  margin-top: 150px;
 }

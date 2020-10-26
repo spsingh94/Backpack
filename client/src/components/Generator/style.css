@@ -16,3 +16,13 @@
 .go-button {
     margin-bottom: 100px;
 }
+
+.get-current {
+  /* display: flex; */
+  text-align: center;
+  cursor: pointer;
+}
+
+.get-current:hover {
+  color: wheat;
+}
