@@ -46,7 +46,8 @@ function Generator(props) {
   const [finalFrom, setFinalFrom] = useState(null);
   const [showElement, setShowElement] = useState("none");
   const [goVisibility, setGoVisibility] = useState("hidden");
-  const [locationVisibility, setLocationVisibility] = useState("visible");
+  const [locationVisibility, setLocationVisibility] = useState("inherit");
+  const [choiceVisibility, setChoiceVisibility] = useState("hidden");
 
   console.log(apiResponse);
   console.log(ageUrl);
@@ -58,7 +59,6 @@ function Generator(props) {
   console.log(cabin);
   console.log(children);
   console.log(fields);
-  // console.log(toCalendarDate);
 
   const rapidKey = process.env.REACT_APP_RAPID_KEY;
   const googleKey = process.env.REACT_APP_GOOGLE_KEY;
@@ -70,18 +70,6 @@ function Generator(props) {
       setUrlDate(finalFrom + "/" + finalTo);
     }
   }, [finalFrom, finalTo]);
-
-  // useEffect(() => {
-  //   if (currentLocation === undefined) {
-  //     navigator.geolocation.getCurrentPosition(function (position) {
-  //       setCurrentLocation([
-  //         position.coords.latitude,
-  //         position.coords.longitude,
-  //       ]);
-  //     });
-  //     setLocationVisibility("visible");
-  //   }
-  // }, [currentLocation]);
 
   useEffect(() => {
     if (selection != null) {
@@ -452,7 +440,14 @@ function Generator(props) {
     navigator.geolocation.getCurrentPosition(function (position) {
       setCurrentLocation([position.coords.latitude, position.coords.longitude]);
     });
-    setLocationVisibility("hidden");
+    //   setTimeout(() => {
+    //     setLocationVisibility(() => ("hidden"), 10000);
+    //   })
+    // setChoiceVisibility("visible");
+    setTimeout(() => {
+      setLocationVisibility("none");
+      setChoiceVisibility("visible");
+    }, 2000);
   }
 
   return (
@@ -463,30 +458,9 @@ function Generator(props) {
         <h2 className="map-location" style={{ display: showElement }}>
           Pack Your Bags, You're Going to {mapLocation} !
         </h2>
-        <ButtonToolbar style={{ justifyContent: "center", paddingTop: "20px" }}>
-          <ButtonGroup>
-            <Button
-              id="city"
-              name="location"
-              value="cities"
-              onClick={selectedCity}
-            >
-              City
-            </Button>
-            <Button
-              id="country"
-              name="location"
-              value="countries"
-              onClick={selectedCountry}
-            >
-              Country
-            </Button>
-          </ButtonGroup>
-        </ButtonToolbar>
-        <br />
         <div
           className="get-current"
-          style={{ visibility: locationVisibility }}
+          style={{ display: locationVisibility }}
           onClick={updateCurrentLocation}
         >
           <svg
@@ -508,6 +482,32 @@ function Generator(props) {
           </svg>
           <p>Current Location</p>
         </div>
+        <ButtonToolbar
+          style={{
+            justifyContent: "center",
+            paddingTop: "20px",
+            visibility: choiceVisibility,
+          }}
+        >
+          <ButtonGroup>
+            <Button
+              id="city"
+              name="location"
+              value="cities"
+              onClick={selectedCity}
+            >
+              City
+            </Button>
+            <Button
+              id="country"
+              name="location"
+              value="countries"
+              onClick={selectedCountry}
+            >
+              Country
+            </Button>
+          </ButtonGroup>
+        </ButtonToolbar>
         <div className="flight-form" style={{ display: showElement }}>
           <div class="input-group mb-3">
             <select
@@ -524,7 +524,7 @@ function Generator(props) {
           </div>
 
           {/* <incrementer */}
-          <Row>
+          <Row className="age-select">
             <div>
               <h5>Adults</h5>
               <div class="input-group mb-3">
@@ -559,7 +559,6 @@ function Generator(props) {
                 </div>
               </div>
             </div>
-
             <div>
               <h5>Children</h5>
               <div class="input-group mb-3">
@@ -591,35 +590,36 @@ function Generator(props) {
                   >
                     +
                   </Button>
-
-                  {fields.map((field, idx) => {
-                    return (
-                      <div key={`${field}-${idx}`}>
-                        <select
-                          class="custom-select"
-                          id="inputGroupSelect01"
-                          onChange={(e) => selectedChildrenAge(idx, e)}
-                        >
-                          <option selected>Please Choose Childs Age</option>
-                          <option value="1">1</option>
-                          <option value="2">2</option>
-                          <option value="3">3</option>
-                          <option value="4">4</option>
-                          <option value="5">5</option>
-                          <option value="6">6</option>
-                          <option value="7">7</option>
-                          <option value="8">8</option>
-                          <option value="9">9</option>
-                          <option value="10">10</option>
-                          <option value="11">11</option>
-                          <option value="12">12</option>
-                        </select>
-                      </div>
-                    );
-                  })}
                 </div>
               </div>
             </div>
+          </Row>
+          <Row className="age-select">
+          {fields.map((field, idx) => {
+            return (
+              <div key={`${field}-${idx}`} style={{ width: "40px" }}>
+                <select
+                  className="custom-select"
+                  id="inputGroupSelect01"
+                  onChange={(e) => selectedChildrenAge(idx, e)}
+                >
+                  <option selected>Please Choose Childs Age</option>
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+                  <option value="6">6</option>
+                  <option value="7">7</option>
+                  <option value="8">8</option>
+                  <option value="9">9</option>
+                  <option value="10">10</option>
+                  <option value="11">11</option>
+                  <option value="12">12</option>
+                </select>
+              </div>
+            );
+          })}
           </Row>
           <Calendar>
             <Col sm="6">
@@ -654,7 +654,7 @@ function Generator(props) {
           </ButtonToolbar>
         </div>
         <p
-          style={{ textAlign: "end", visibility: goVisibility }}
+          style={{ textAlign: "center", visibility: goVisibility }}
           onClick={selectedCity}
           className="change-option"
         >

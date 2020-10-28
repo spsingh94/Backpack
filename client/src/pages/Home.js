@@ -10,7 +10,7 @@ function Home() {
       <p className="card-text header-notice">
       &#9888; DUE TO COVID19, CERTAIN AREAS MAY CONTAIN TRAVEL BANS/RESTRICTIONS. WE APOLOGIZE FOR THE INCONVENIENCE.
       </p>
-        <h1 className="card-title header-title">
+        <h1 className="card-title header-title" id="home-title">
           Welcome to Backpack! Your Spontaneous Travel Planner.
         </h1>
         <p className="card-text header-text">

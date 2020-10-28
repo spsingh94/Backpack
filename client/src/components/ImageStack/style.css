@@ -26,3 +26,31 @@
   border-radius: 20px;
   filter: drop-shadow(0 0 0.75rem);
 }
+
+@media(max-width: 1000px){
+  .stack-image {
+    height: 350px;
+    width: 200px;
+  }  
+}
+
+@media(max-width: 450px){
+  .stack-image {
+    height: 250px;
+    width: 150px;
+  }  
+}
+
+@media(max-width: 374px){
+  .stack-image {
+    height: 200px;
+    width: 100px;
+  }  
+}
+
+@media(max-width: 290px){
+  .stack-image {
+    height: 150px;
+    width: 75px;
+  }  
+}

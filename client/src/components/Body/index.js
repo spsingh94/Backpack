@@ -1,11 +1,11 @@
 import React from "react";
-import { Container, Row, Col } from "reactstrap";
+import { Container, Row, Button, ButtonToolbar, ButtonGroup } from "reactstrap";
 import ImageStack from "../ImageStack";
-import "./style.css";
 import Indo1 from "../../images/indo1.jpg";
 import Indo2 from "../../images/indo2.png";
 import Bromo from "../../images/mtbromo.jpg";
 import Bali from "../../images/bali.jpg";
+import "./style.css";
 
 function Body() {
   return (
@@ -13,9 +13,16 @@ function Body() {
       <Container>
         <h1 className="body-title">About Us</h1>
         <Row>
-          <Col md="6" className="body-column">
-            <h5>Our Mission</h5>
-            <p className="body-text">
+          <p className="body-text">
+            {" "}
+            <div
+              className="stack-div"
+              style={{ float: "right", marginLeft: "30px" }}
+            >
+              <ImageStack src1={Indo2} src2={Indo1} />
+            </div>
+            <div className="inner-text">
+              <h5>Our Mission</h5>
               Our mission was to make backpack traveling less confusing and
               easier. We are aware that at times finding new places to travel
               can be hard and that you just want to leave that front door and
@@ -24,45 +31,42 @@ function Body() {
               ticket information and pricing in seconds! We made all the
               difficult stuff easier and faster so that you can do all the fun
               stuff more easily and faster.
-            </p>
-          </Col>
-          <Col md="6">
-            <ImageStack src1={Indo2} src2={Indo1} />
-          </Col>
+            </div>
+          </p>
         </Row>
         <Row>
-          <Col md="6">
-            <ImageStack src1={Bromo} src2={Bali} />
-          </Col>
-          <Col md="6">
-            <p className="body-text">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorem
-              itaque tenetur laboriosam deserunt dignissimos asperiores impedit
-              ratione, fugit odio hic, soluta nemo incidunt non fuga eum quo,
-              optio saepe dolor?Lorem ipsum dolor sit amet consectetur
-              adipisicing elit. Dolorem itaque tenetur laboriosam deserunt
-              dignissimos asperiores impedit ratione, fugit odio hic, soluta
-              nemo incidunt non fuga eum quo, optio saepe dolor?Lorem ipsum
-              dolor sit amet consectetur adipisicing elit. Dolorem itaque
-              tenetur laboriosam deserunt dignissimos asperiores impedit
-              ratione, fugit odio hic, soluta nemo incidunt non fuga eum quo,
-              optio saepe dolor?Lorem ipsum dolor sit amet consectetur
-              adipisicing elit. Dolorem itaque tenetur laboriosam deserunt
-              dignissimos asperiores impedit ratione, fugit odio hic, soluta
-              nemo incidunt non fuga eum quo, optio saepe dolor?Lorem ipsum
-              dolor sit amet consectetur adipisicing elit. Dolorem itaque
-              tenetur laboriosam deserunt dignissimos asperiores impedit
-              ratione, fugit odio hic, soluta nemo incidunt non fuga eum quo,
-              optio saepe dolor?Lorem ipsum dolor sit amet consectetur
-              adipisicing elit. Dolorem itaque tenetur laboriosam deserunt
-              dignissimos asperiores impedit ratione, fugit odio hic, soluta
-              nemo incidunt non fuga eum quo, optio saepe dolor?Lorem ipsum
-              dolor sit amet consectetur adipisicing elit. Dolorem itaque
-              tenetur laboriosam deserunt dignissimos asperiores impedit
-              ratione, fugit odio hic, soluta nemo incidunt non fuga eum quo,
-              optio saepe dolor?
-            </p>
-          </Col>
+          <p className="body-text">
+            {" "}
+            <div
+              className="stack-div"
+              style={{ float: "left", marginRight: "30px" }}
+            >
+              <ImageStack src1={Bromo} src2={Bali} />
+            </div>
+            <div className="inner-text">
+              <h5>The Vision</h5>
+              Vision of the project came from the idea of backpacking and what
+              it meant. Finding traveling to new parts of the world with the
+              lots of risk and fear exciting and unpredictable. Vision also came
+              from the desire to travel with little to no idea of where to go or
+              what the trip would cost. Backpack if not an actual trip gives you
+              an insight on different parts of the world and what that trip
+              would look like litterally and figuratively. If we fail at helping
+              you plan your next trip, we will at least give you an idea of what
+              your next trip may or may not look like :)
+              <br />
+              <br />
+              <p style={{textAlign:"center"}}>
+              Let's get started. Click the button below to find your next trip.
+              </p>
+              <ButtonToolbar style={{ justifyContent: "center" }}>
+                <ButtonGroup>
+                  <Button>Get Started</Button>
+                </ButtonGroup>
+              </ButtonToolbar>
+            </div>
+          </p>
+          <Row className="button-row" style={{ marginBottom: "30px" }}></Row>
         </Row>
       </Container>
     </>

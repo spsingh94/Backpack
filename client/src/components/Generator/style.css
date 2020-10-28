@@ -8,21 +8,40 @@
   margin-right: 250px;
 }
 
+.custom-select {
+  width: 25%;
+}
+
 .change-option {
-  margin-right: 100px;
   cursor: pointer;
+  border: black 1px solid;
+  border-top: none;
+  border-right: none;
+  border-left: none;
+  margin-top: 10px;
+}
+
+.change-option:hover {
+  color: wheat;
 }
 
 .go-button {
-    margin-bottom: 100px;
+    margin-bottom: 20px;
 }
 
 .get-current {
   /* display: flex; */
+  justify-content: center;
   text-align: center;
   cursor: pointer;
 }
 
 .get-current:hover {
   color: wheat;
+}
+
+.age-select {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
 }
