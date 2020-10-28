@@ -21,6 +21,14 @@ function TravelPage() {
       <Container>
         <ol style={{ textAlign: "center" }}>
           <li>
+            Allow current location detection. It is crucial to the performance
+            of the application that you allow current location detection.
+            Blocking the applications capability to search your current location
+            will prevent you from being able to view available traveling
+            tickets.
+          </li>
+          <br />
+          <li>
             Choose your destination search preference. You have the option of
             searching for a specific city or country. As you can tell, these two
             options are very different. One option limits the planning while the
@@ -33,13 +41,6 @@ function TravelPage() {
             jumping right to the form! (If you are not happy with your
             destination or if the destination does not have any available
             traveling tickets you may restart at any time.)
-          </li>
-          <br />
-          <li>
-            CURRENT LOCATION! It is crucial to the performance of the
-            application that you ALLOW current location. Blocking the
-            applications capability to search your current location will prevent
-            you from being able to view available traveling tickets.
           </li>
           <br />
           <li>
