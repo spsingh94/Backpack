@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "proxy": "https://backpack-travelplan.herokuapp.com/",
+  "homepage": ".",
   "engines": {
     "node": "12.18.x"
   },
@@ -22,8 +23,8 @@
     "reactstrap": "^8.6.0"
   },
   "scripts": {
-    "start": "concurrently \"nodemon server.js\" \"npm run client\"",
-    "client": "cd client && npm start",
+    "start": "npm run client",
+    "client": "cd client && npm run start",
     "build": "cd client && npm run build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
