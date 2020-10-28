@@ -19,6 +19,18 @@
   justify-content: center;
 }
 
+@media (min-width: 700px){
+  .text-set1 {
+    margin-top: 40px;
+  }
+}
+
+@media (min-width: 1000px){
+  .inner-text {
+    margin-top: 90px;
+  }
+}
+
 @media (max-width: 450px) {
   .inner-text {
     font-size: 18px;

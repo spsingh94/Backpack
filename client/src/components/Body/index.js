@@ -21,7 +21,7 @@ function Body() {
             >
               <ImageStack src1={Indo2} src2={Indo1} />
             </div>
-            <div className="inner-text">
+            <div className="inner-text text-set1">
               <h5>Our Mission</h5>
               Our mission was to make backpack traveling less confusing and
               easier. We are aware that at times finding new places to travel
@@ -43,7 +43,7 @@ function Body() {
             >
               <ImageStack src1={Bromo} src2={Bali} />
             </div>
-            <div className="inner-text">
+            <div className="inner-text text-set2">
               <h5>The Vision</h5>
               Vision of the project came from the idea of backpacking and what
               it meant. Finding traveling to new parts of the world with the
@@ -66,7 +66,6 @@ function Body() {
               </ButtonToolbar>
             </div>
           </p>
-          <Row className="button-row" style={{ marginBottom: "30px" }}></Row>
         </Row>
       </Container>
     </>

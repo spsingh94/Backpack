@@ -23,31 +23,14 @@ function TravelPage() {
           <li>
             Allow current location detection. It is crucial to the performance
             of the application that you allow current location detection.
-            Blocking the applications capability to search your current location
-            will prevent you from being able to view available traveling
-            tickets.
           </li>
           <br />
           <li>
-            Choose your destination search preference. You have the option of
-            searching for a specific city or country. As you can tell, these two
-            options are very different. One option limits the planning while the
-            other leaves some room to plan.
+            Choose your destination search preference.
           </li>
           <br />
           <li>
-            Congratulations! You have received the location of your next
-            backpack trip! Now make sure that you follow the next step before
-            jumping right to the form! (If you are not happy with your
-            destination or if the destination does not have any available
-            traveling tickets you may restart at any time.)
-          </li>
-          <br />
-          <li>
-            Finally, fill out the form, click done, and click view tickets. Any
-            changes that need to be made can be made by clicking the "Make
-            Changes +" tab. We hope you enjoy your experience with us and that
-            you have an amazing and safe trip! Happy backpacking!
+            Fill out the form and click view tickets. You're all done! Happy Backpacking!
           </li>
         </ol>
       </Container>
