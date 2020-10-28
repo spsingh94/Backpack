@@ -10,9 +10,9 @@ function App() {
   return (
     <Router>
       <Navbar />
-      <Route exact path="/" component={Home} />
       <Route exact path="/travel" component={TravelPage} />
       <Route exact path="/contact" component={ContactPage} />
+      <Route exact path="/" component={Home} />
       <Footer />
     </Router>
   );
