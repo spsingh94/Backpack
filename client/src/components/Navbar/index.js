@@ -1,7 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import "./style.css";
-import Backpack from "../../images/backpacklogo.png";
+import logo from "../../images/backpacklogo.png";
+// import { Button } from "reactstrap";
 
 function Navbar() {
   return (
@@ -12,7 +13,7 @@ function Navbar() {
           window.location.pathname === "/" ? "nav-link active" : "nav-link"
         }
       >
-        <img src={Backpack} className="logo" alt="backpack-logo" />
+        <img src={logo} className="logo" alt="backpack-logo" />
       </Link>
       <button
         class="navbar-toggler"

@@ -1,14 +1,15 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import Backpack from "../../images/backpacklogo.png";
+import { Container, Row, Col } from "reactstrap";
+import logo from "../../images/backpacklogo.png";
 import "./style.css";
 
 function Footer() {
   return (
     <footer className="page-footer blue-grey darken-3">
-      <div className="container">
-        <div className="row">
-          <div className="col s9">
+      <Container className="container">
+        <Row>
+          <Col sm="2">
             <Link
               to="/"
               id="footer-nav-items"
@@ -18,17 +19,12 @@ function Footer() {
                   : "nav-link"
               }
             >
-              <img
-                src={Backpack}
-                className="logo"
-                id="footer-logo"
-                alt="logo"
-              />
+              <img src={logo} className="logo" id="footer-logo" alt="logo" />
             </Link>
-          </div>
-          <div className="col s4"></div>
-          <div className="col s2">
-            <ul>
+          </Col>
+          <Col lg="6"></Col>
+          <Col sm="4">
+            <ul style={{ listStyle: "none" }}>
               <li>
                 <Link
                   to="/"
@@ -69,9 +65,9 @@ function Footer() {
                 </Link>
               </li>
             </ul>
-          </div>
-        </div>
-      </div>
+          </Col>
+        </Row>
+      </Container>
       <div className="footer-copyright">
         <div className="card-footer text-muted">
           ©2020 BACKPACK TRAVEL ALL RIGHTS RESERVED.

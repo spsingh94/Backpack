@@ -9,10 +9,10 @@ function TravelPage() {
     <>
       <Header src={TravHeader} alt="travel-header">
         <h1 className="card-title header-title">Let's Travel</h1>
-        <p className="card-text header-text">
+        {/* <p className="card-text header-text">
           CHOOSE CITY OR COUNTRY &#8226; GET LOCATION &#8226; ENTER FLIGHT
           INFORMATION &#8226; GET TICKET PRICES
-        </p>
+        </p> */}
       </Header>
       <h1 className="body-title">How It Works</h1>
       <p style={{ textAlign: "center" }}>

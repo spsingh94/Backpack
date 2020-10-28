@@ -61,7 +61,7 @@ function Body() {
               </p>
               <ButtonToolbar style={{ justifyContent: "center" }}>
                 <ButtonGroup>
-                  <Button>Get Started</Button>
+                  <Button href="/travel">Get Started</Button>
                 </ButtonGroup>
               </ButtonToolbar>
             </div>

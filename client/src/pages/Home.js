@@ -13,10 +13,10 @@ function Home() {
         <h1 className="card-title header-title" id="home-title">
           Welcome to Backpack! Your Spontaneous Travel Planner.
         </h1>
-        <p className="card-text header-text">
+        {/* <p className="card-text header-text">
           READY TO TRAVEL? NOT SURE WHERE? LET US HELP YOU DISCOVER THE WORLD BY
           DISCOVERING YOUR NEXT TRIP.
-        </p>
+        </p> */}
       </Header>
       <Body/>
     </>
