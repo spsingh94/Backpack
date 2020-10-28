@@ -46,18 +46,20 @@ function Body() {
             <div className="inner-text text-set2">
               <h5>The Vision</h5>
               Vision of the project came from the idea of backpacking and what
-              it meant. Finding traveling to new parts of the world with the
-              lots of risk and fear exciting and unpredictable. Vision also came
-              from the desire to travel with little to no idea of where to go or
-              what the trip would cost. Backpack if not an actual trip gives you
-              an insight on different parts of the world and what that trip
-              would look like litterally and figuratively. If we fail at helping
-              you plan your next trip, we will at least give you an idea of what
-              your next trip may or may not look like :)
+              it meant. Finding and traveling to new parts of the world can be
+              risky but that is not all, it can be unpredictable, fun, exciting,
+              and scary. The vision also came from the desire to travel while
+              having little to no knowledge on the trips distance or cost.
+              Backpack, if not an actual trip gives you an insight on different
+              parts of the world and what a trip to those places would look like
+              litterally and figuratively. If we fail at helping you plan your
+              next trip, we will at least give you an idea of what your next
+              trip may or may not look like.
               <br />
               <br />
-              <p style={{textAlign:"center"}}>
-              Let's get started. Click the button below to find your next trip.
+              <p style={{ textAlign: "center" }}>
+                Let's get started. Click the button below to find your next
+                trip!
               </p>
               <ButtonToolbar style={{ justifyContent: "center" }}>
                 <ButtonGroup>
